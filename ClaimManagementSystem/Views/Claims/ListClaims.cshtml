@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Claim>
+
+<h1>Claims List</h1>
+
+<form method="get" asp-action="ListClaims">
+    <div class="input-group mb-3">
+        <input type="text" name="searchString" class="form-control" placeholder="Search by Additional Notes" />
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Hours Worked</th>
+            <th>Hourly Rate</th>
+            <th>Additional Notes</th>
+            <th>Document</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.Id</td>
+                <td>@claim.HoursWorked</td>
+                <td>@claim.HourlyRate</td>
+                <td>@claim.AdditionalNotes</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(claim.DocumentPath))
+                    {
+                        <a href="@claim.DocumentPath" target="_blank">View Document</a>
+                    }
+                    else
+                    {
+                        <span>No Document</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="EditClaim" asp-route-id="@claim.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DeleteClaim" asp-route-id="@claim.Id" class="btn btn-danger">Delete</a>
+                    <a asp-action="Details" asp-route-id="@claim.Id" class="btn btn-info">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination">
+    @if (Model.Any())
+    {
+        // Example pagination controls
+        // Implement logic to calculate total pages and current page
+        // Add links for previous, next, and specific page numbers
+    }
+</div>
+
+<form method="get" asp-action="ListClaims">
+    <div class="input-group mb-3">
+        <input type="text" name="searchString" class="form-control" placeholder="Search by Additional Notes" />
+        <select name="sortOrder" class="form-select">
+            <option value="">Sort by</option>
+            <option value="date">Date</option>
+            <option value="amount">Amount</option>
+        </select>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+</form>
+<br />
+
+<a class="btn btn-primary" asp-action="CreateClaim">Create New Claim</a>
+
+
+<a asp-action="ExportClaims" class="btn btn-success">Export Claims</a>

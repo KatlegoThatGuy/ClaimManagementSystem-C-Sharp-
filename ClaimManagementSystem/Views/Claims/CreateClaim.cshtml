@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ClaimViewModel
+
+<h1>Create Claim</h1>
+
+<form asp-action="CreateClaim" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="HoursWorked"></label>
+        <input asp-for="HoursWorked" class="form-control" />
+        <span asp-validation-for="HoursWorked" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HourlyRate"></label>
+        <input asp-for="HourlyRate" class="form-control" />
+        <span asp-validation-for="HourlyRate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AdditionalNotes"></label>
+        <textarea asp-for="AdditionalNotes" class="form-control"></textarea>
+        <span asp-validation-for="AdditionalNotes" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Supporting Documents</label>
+        <input type="file" name="SupportingDocuments" multiple class="form-control" />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Create Claim</button>
+    
+
+    <a asp-action="ListClaims" class="btn btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
+
